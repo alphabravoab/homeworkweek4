@@ -6,9 +6,10 @@ const selectReducer = ( state = [], action ) => {
       return [
         ...state,
         {
+          name : action.payload.name,
           manufacturer: action.payload.manufacturer,
           year: action.payload.year,
-          origin: action.payload.origin
+          origin: action.payload.origin,    
         }
       ]
     default:

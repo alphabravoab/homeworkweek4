@@ -29,55 +29,47 @@ const data = {
 }
 
 class Selector extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {item: 'coconut'};
-    this.handleChange = this.handleChange.bind(this);
-    this.addIt = this.addIt.bind(this);
-  }
-componentDidUpdate(){
-  console.log("props", this.props)
-}
-addIt(event) {
-  console.log(event.target)
+addIt = ( event ) => {
   event.preventDefault()
-  updateSelection(event.item)
-//  console.log(this.state.item)
+  const item = this.state.item
+  this.props.updateSelection(item)
 }
 
 
-  handleChange = (event) => {
-  //  console.log(data[event.target.value])
+  handleChange = ( event ) => {
+  const name = event.target.value;
+  const currentdata = data[name];
     this.setState({
-       item: event.target.value
+       item: {
+         name : name,
+         manufacturer: currentdata.manufacturer,
+         year :currentdata.year,
+         origin :currentdata.origin
+       }
     })
 }
   render() {
     return(
        <div>
-         <ModelDetails />
-           <form onSubmit={ this.addIt }>
-             <select onChange={ this.handleChange }>
-                 <option value="">-- pick a model --</option>
-                 <option value={ data["Ivel Z3"] }>Ivel Z3 (1969)</option>
-                 <option value={ data["Bally Astrocade"] }>Bally Astrocade (1977)</option>
-                 <option value={ data["Sord M200 Smart Home Computer"] }>Sord M200 Smart Home Computer (1977)</option>
-                 <option value={ data["Commodore 64"] }>Commodore 64 (1982)</option>
+         <form onSubmit={ this.addIt }>
+             <select onChange = { this.handleChange }>
+                 <option value = "">-- pick a model -- </option>
+                 <option value = "Ivel Z3"> Ivel Z3 (1969) </option>
+                 <option value = "Bally Astrocade"> Bally Astrocade (1977) </option>
+                 <option value = "Sord M200 Smart Home Computer"> Sord M200 Smart Home Computer (1977) </option>
+                 <option value = "Commodore 64"> Commodore 64 (1982) </option>
              </select>
              <input type="submit" value="ADD" />
           </form>
+          { this.props.item.map(item => <ModelDetails { ...item } /> ) }
        </div>
        )
      }
 }
 
-
-
-
 const mapStateToProps = state => ({
-    item: state.item
+    item: state.selectReducer
 })
-
 
 const mapDispatchToProps = dispatch => ({
   updateSelection: item => dispatch(updateSelection(item))
