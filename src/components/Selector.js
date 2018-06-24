@@ -40,8 +40,8 @@ componentDidUpdate(){
 }
 addIt(event) {
   console.log(event.target)
-  event.preventDefault(event.item)
-  updateSelection(event.target)
+  event.preventDefault()
+  updateSelection(event.item)
 //  console.log(this.state.item)
 }
 
@@ -56,13 +56,13 @@ addIt(event) {
     return(
        <div>
          <ModelDetails />
-           <form onSubmit={this.addIt}>
-             <select onChange={this.handleChange}>
+           <form onSubmit={ this.addIt }>
+             <select onChange={ this.handleChange }>
                  <option value="">-- pick a model --</option>
-                 <option value={data["Ivel Z3"]}>Ivel Z3 (1969)</option>
-                 <option value={data["Bally Astrocade"]}>Bally Astrocade (1977)</option>
-                 <option value={data["Sord M200 Smart Home Computer"]}>Sord M200 Smart Home Computer (1977)</option>
-                 <option value={data["Commodore 64"]}>Commodore 64 (1982)</option>
+                 <option value={ data["Ivel Z3"] }>Ivel Z3 (1969)</option>
+                 <option value={ data["Bally Astrocade"] }>Bally Astrocade (1977)</option>
+                 <option value={ data["Sord M200 Smart Home Computer"] }>Sord M200 Smart Home Computer (1977)</option>
+                 <option value={ data["Commodore 64"] }>Commodore 64 (1982)</option>
              </select>
              <input type="submit" value="ADD" />
           </form>
@@ -74,11 +74,13 @@ addIt(event) {
 
 
 
-const mapStateToProps = function (state) {
-  return {
+const mapStateToProps = state => ({
     item: state.item
-  }
-}
-const mapDispatchToProps = { updateSelection }
+})
+
+
+const mapDispatchToProps = dispatch => ({
+  updateSelection: item => dispatch(updateSelection(item))
+})
 
 export default connect( mapStateToProps, mapDispatchToProps, ) (Selector)

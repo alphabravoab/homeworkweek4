@@ -1,15 +1,19 @@
 import { ADD_ITEM } from '../actions/actionSelection'
 
-const reducer =(state = [], action) => {
+const selectReducer = ( state = [], action ) => {
   switch (action.type) {
     case 'ADD_ITEM':
       return [
         ...state,
-        action.payload
+        {
+          manufacturer: action.payload.manufacturer,
+          year: action.payload.year,
+          origin: action.payload.origin
+        }
       ]
     default:
       return state
   }
 }
 
-export default reducer
+export default selectReducer

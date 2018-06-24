@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import select_reducer from './selectreducer'
+import selectReducer from './selectreducer'
 
 export default combineReducers({
-  select_reducer
+  selectReducer,
 })
